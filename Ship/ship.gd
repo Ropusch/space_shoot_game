@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 30
+const SPEED = 32
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -28,20 +28,20 @@ func pause_menu():
 
 func move_up() -> void:
 	position.y -= SPEED
-	if position.y < 0:
+	if position.y <= 0:
 		position.y += 640
 
 func move_down() -> void:
 	position.y += SPEED
-	if position.y > 640:
+	if position.y >= 640:
 		position.y -= 640
 
 func move_left() -> void:
 	position.x -= SPEED
-	if position.x < 0:
+	if position.x <= 0:
 		position.x += 640
 
 func move_right() -> void:
 	position.x += SPEED
-	if position.x > 640:
+	if position.x >= 640:
 		position.x -= 640

@@ -1,18 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6pdxhsc0epy1"]
+[gd_scene load_steps=3 format=3 uid="uid://c6pdxhsc0epy1"]
 
 [ext_resource type="Script" uid="uid://def3x8hcoogo0" path="res://Ship/ship.gd" id="1_q4ev1"]
-[ext_resource type="Texture2D" uid="uid://cke4sg2eroqqw" path="res://icon.svg" id="2_edrfk"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8he13"]
-size = Vector2(42, 42)
+[ext_resource type="Texture2D" uid="uid://54kbbu3aa76n" path="res://assets/Sprite-0001.png" id="2_q4ev1"]
 
 [node name="Ship" type="CharacterBody2D"]
+top_level = true
 script = ExtResource("1_q4ev1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -1.43051e-06)
-scale = Vector2(0.328125, 0.328125)
-texture = ExtResource("2_edrfk")
+position = Vector2(-1.07288e-06, 1.49012e-06)
+scale = Vector2(1, 1)
+texture = ExtResource("2_q4ev1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_8he13")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-19, 3, -19, -3, -10, -3, -3, -10, -3, -19, 3, -19, 3, -10, 10, -3, 19, -3, 19, 3, 10, 3, 3, 10, 3, 19, -3, 19, -3, 10, -10, 3)

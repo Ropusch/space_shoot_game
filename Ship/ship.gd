@@ -1,62 +1,41 @@
-extends CharacterBody2D
+extends RigidBody2D
+
+@onready var hull: Line2D = $hull
 
 const BULLET = preload("uid://dlixkppfvsxrk")
 
-const SPEED = 32
-
+@export var SPEED = 32
+var cur_rotation = 0
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("UP"):
-		move_up()
-		shot(PI)
-	if event.is_action_pressed("DOWN"):
-		move_down()
-		shot(0)
 	if event.is_action_pressed("LEFT"):
-		move_left()
-		shot(PI/2)
+		rotation -= deg_to_rad(5)
 	if event.is_action_pressed("RIGHT"):
-		move_right()
-		shot(3*PI/2)
-	
-	
-	
-	if event.is_action_pressed("ESC"):
-		pause_menu()
+		rotation += deg_to_rad(5)
+	if event.is_action_pressed("SHOT"):
+		shot()
 
 
+func rotate_hull(new_angle):
+	hull.rotation = new_angle
 
-func pause_menu():
-	get_tree().quit()
 
-
-func shot(angle: float):
+func shot():
 	var bullet = BULLET.instantiate()
 	add_child(bullet)
-	bullet.rotation = angle
-	bullet.global_position = position
+	bullet.rotation = cur_rotation 
+	bullet.global_position = position + 30*Vector2(0,-1).rotated(cur_rotation)  
 
 	var speed = 500.0  
-	var direction = Vector2(0,-1).rotated(angle)  
+	var direction = Vector2(0,-1).rotated(cur_rotation)  
 	bullet.linear_velocity = direction * speed
+	
+	recoil()
 
 
-func move_up() -> void:
-	position.y -= SPEED
-	if position.y <= 0:
-		position.y += 640
+func recoil():
+	apply_impulse(Vector2.ZERO, Vector2(0,-1).rotated(cur_rotation) * SPEED)
 
-func move_down() -> void:
-	position.y += SPEED
-	if position.y >= 640:
-		position.y -= 640
 
-func move_left() -> void:
-	position.x -= SPEED
-	if position.x <= 0:
-		position.x += 640
-
-func move_right() -> void:
-	position.x += SPEED
-	if position.x >= 640:
-		position.x -= 640
+func damage():
+	print("ship: booom :C")

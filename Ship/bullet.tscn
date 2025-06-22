@@ -1,15 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlixkppfvsxrk"]
+[gd_scene load_steps=3 format=3 uid="uid://dlixkppfvsxrk"]
+
+[ext_resource type="Script" uid="uid://bnp034gk3t0r" path="res://Ship/bullet.gd" id="1_qdkpk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jmrmv"]
 radius = 1.0
 height = 16.0
 
-[node name="bullet" type="RigidBody2D"]
+[node name="bullet" type="RigidBody2D" groups=["astreoids"]]
 collision_layer = 2
 collision_mask = 4
 mass = 0.001
 gravity_scale = 0.0
 linear_damp_mode = 1
+script = ExtResource("1_qdkpk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_jmrmv")

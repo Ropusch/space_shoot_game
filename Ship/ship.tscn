@@ -1,16 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6pdxhsc0epy1"]
+[gd_scene load_steps=2 format=3 uid="uid://c6pdxhsc0epy1"]
 
 [ext_resource type="Script" uid="uid://def3x8hcoogo0" path="res://Ship/ship.gd" id="1_q4ev1"]
-[ext_resource type="Texture2D" uid="uid://54kbbu3aa76n" path="res://assets/Sprite-0001.png" id="2_q4ev1"]
 
-[node name="Ship" type="CharacterBody2D"]
+[node name="Ship" type="RigidBody2D" groups=["ship"]]
 top_level = true
+gravity_scale = 0.0
 script = ExtResource("1_q4ev1")
+SPEED = 320
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1.07288e-06, 1.49012e-06)
-scale = Vector2(1, 1)
-texture = ExtResource("2_q4ev1")
+[node name="hull" type="Line2D" parent="."]
+points = PackedVector2Array(0, 26, -18, -20, 18, -20)
+closed = true
+width = 1.0
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-19, 3, -19, -3, -10, -3, -3, -10, -3, -19, 3, -19, 3, -10, 10, -3, 19, -3, 19, 3, 10, 3, 3, 10, 3, 19, -3, 19, -3, 10, -10, 3)
+[node name="canon" type="Line2D" parent="hull"]
+position = Vector2(0, -1)
+rotation = 6.28319
+scale = Vector2(1, 0.95)
+points = PackedVector2Array(-2, -6.35772e-07, -2, -9.47368, -4, -13.6842, 4, -13.6842, 2, -9.47368, 2, -1.37196e-06)
+width = 1.0
+
+[node name="detector" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="detector"]
+position = Vector2(1, -7)
+polygon = PackedVector2Array(-1, 33, -19, -13, 17, -13)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, -7)
+polygon = PackedVector2Array(-1, 33, -19, -13, 17, -13)

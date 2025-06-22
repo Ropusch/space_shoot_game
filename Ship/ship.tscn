@@ -12,6 +12,8 @@ SPEED = 150
 ROT_SPEED = 3.0
 
 [node name="hull" type="Line2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.894737, 0.9375)
 points = PackedVector2Array(0, 26, -18, -20, 18, -20)
 closed = true
 width = 1.0
@@ -27,8 +29,8 @@ width = 1.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="detector"]
 position = Vector2(1, -7)
-polygon = PackedVector2Array(-1, 33, -19, -13, 17, -13)
+polygon = PackedVector2Array(-1, 33, -17, -11, 15, -11)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(1, -7)
-polygon = PackedVector2Array(-1, 33, -19, -13, 17, -13)
+position = Vector2(2, -7)
+polygon = PackedVector2Array(-2, 33, -18, -11, 14, -11)

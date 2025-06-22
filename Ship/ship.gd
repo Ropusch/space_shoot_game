@@ -4,7 +4,7 @@ extends RigidBody2D
 
 const BULLET = preload("uid://dlixkppfvsxrk")
 
-@export var SPEED = 32
+@export var SPEED = 40
 @export var ROT_SPEED = 0.8
 var cur_rotation = 0
 
@@ -13,6 +13,8 @@ var shoot_timer := 0.0
 
 
 func _physics_process(delta: float) -> void:
+	space_wrap()
+	
 	if Input.is_action_pressed("LEFT"):
 		angular_velocity = -ROT_SPEED
 		#rotation -= PI * ROT_SPEED * delta
@@ -24,6 +26,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("SHOT") and shoot_timer <= 0:
 		shot()
 		shoot_timer = shoot_cooldown
+
+
+func space_wrap():
+	if position.x <= 0: position.x+=1280
+	if position.x >= 1280: position.x-=1280
+	if position.y <= 0: position.y += 720
+	if position.y >= 720: position.y -= 720
 
 
 func shot():

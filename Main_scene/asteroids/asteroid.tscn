@@ -3,29 +3,15 @@
 [ext_resource type="Script" uid="uid://dbulowkinoar2" path="res://Main_scene/asteroids/asteroid.gd" id="1_6paju"]
 
 [node name="asteroid" type="RigidBody2D" groups=["astreoids"]]
-collision_layer = 2
-collision_mask = 2
-mass = 1000.0
-gravity_scale = 0.0
-contact_monitor = true
-max_contacts_reported = 1
-script = ExtResource("1_6paju")
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(0.5, 0)
-polygon = PackedVector2Array(-10.5, -4, -3.5, -7, 2.5, -9, 7.5, -9, 12.5, -3, 9.5, 1, 10.5, 6, 0.5, 12, -8.5, 5)
-
-[node name="detector" type="Area2D" parent="."]
+scale = Vector2(2, 2)
 collision_layer = 3
 collision_mask = 3
+gravity_scale = 0.0
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 10
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_6paju")
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="detector"]
-position = Vector2(0.5, 0)
-polygon = PackedVector2Array(-10.5, -4, -3.5, -7, 2.5, -9, 7.5, -9, 12.5, -3, 9.5, 1, 10.5, 6, 0.5, 12, -8.5, 5)
-
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(3, -9, -3.0108, -7.4946, -10, -4, -8, 5, 1, 12, 11, 6, 10, 1, 13, -3, 8, -9, 3, -9, -1, -8)
-width = 1.0
-default_color = Color(0.519263, 0.179737, 0.0491308, 1)
-
-[connection signal="body_entered" from="detector" to="." method="_on_detector_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

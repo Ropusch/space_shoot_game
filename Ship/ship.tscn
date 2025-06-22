@@ -5,8 +5,11 @@
 [node name="Ship" type="RigidBody2D" groups=["ship"]]
 top_level = true
 gravity_scale = 0.0
+can_sleep = false
+linear_damp = 1.0
 script = ExtResource("1_q4ev1")
-SPEED = 320
+SPEED = 150
+ROT_SPEED = 3.0
 
 [node name="hull" type="Line2D" parent="."]
 points = PackedVector2Array(0, 26, -18, -20, 18, -20)
@@ -14,10 +17,10 @@ closed = true
 width = 1.0
 
 [node name="canon" type="Line2D" parent="hull"]
-position = Vector2(0, -1)
+position = Vector2(2.27374e-13, -14)
 rotation = 6.28319
 scale = Vector2(1, 0.95)
-points = PackedVector2Array(-2, -6.35772e-07, -2, -9.47368, -4, -13.6842, 4, -13.6842, 2, -9.47368, 2, -1.37196e-06)
+points = PackedVector2Array(-3, -6.31579, -3, -9.47368, -5, -13.6842, 5, -13.6842, 3, -9.47368, 3, -6.31579)
 width = 1.0
 
 [node name="detector" type="Area2D" parent="."]

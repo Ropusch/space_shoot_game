@@ -8,7 +8,7 @@ func _on_detector_body_entered(body: Node2D) -> void:
 		destroy()
 		body.kill()
 	elif body.is_in_group("ship"):
-		body.damage()
+		body.collision()
 
 
 func destroy():

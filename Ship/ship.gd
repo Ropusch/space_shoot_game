@@ -5,37 +5,43 @@ extends RigidBody2D
 const BULLET = preload("uid://dlixkppfvsxrk")
 
 @export var SPEED = 32
+@export var ROT_SPEED = 0.8
 var cur_rotation = 0
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("LEFT"):
-		rotation -= deg_to_rad(5)
-	if event.is_action_pressed("RIGHT"):
-		rotation += deg_to_rad(5)
-	if event.is_action_pressed("SHOT"):
+var shoot_cooldown := 0.2  # sekundy
+var shoot_timer := 0.0
+
+
+func _physics_process(delta: float) -> void:
+	if Input.is_action_pressed("LEFT"):
+		angular_velocity = -ROT_SPEED
+		#rotation -= PI * ROT_SPEED * delta
+	if Input.is_action_pressed("RIGHT"):
+		#rotation += PI * ROT_SPEED * delta
+		angular_velocity = ROT_SPEED
+
+	shoot_timer -= delta
+	if Input.is_action_pressed("SHOT") and shoot_timer <= 0:
 		shot()
-
-
-func rotate_hull(new_angle):
-	hull.rotation = new_angle
+		shoot_timer = shoot_cooldown
 
 
 func shot():
 	var bullet = BULLET.instantiate()
-	add_child(bullet)
-	bullet.rotation = cur_rotation 
-	bullet.global_position = position + 30*Vector2(0,-1).rotated(cur_rotation)  
-
+	get_tree().current_scene.add_child(bullet)
+	bullet.global_rotation = rotation
+	bullet.global_position = position + 30*Vector2(0,-1).rotated(rotation)  
+#
 	var speed = 500.0  
-	var direction = Vector2(0,-1).rotated(cur_rotation)  
+	var direction = Vector2(0,-1).rotated(rotation)  
 	bullet.linear_velocity = direction * speed
 	
 	recoil()
 
 
 func recoil():
-	apply_impulse(Vector2.ZERO, Vector2(0,-1).rotated(cur_rotation) * SPEED)
+	linear_velocity = Vector2(0, 1).rotated(rotation) * SPEED
 
 
-func damage():
+func collision():
 	print("ship: booom :C")

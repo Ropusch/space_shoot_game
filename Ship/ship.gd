@@ -4,15 +4,19 @@ extends RigidBody2D
 
 const BULLET = preload("uid://dlixkppfvsxrk")
 
-@export var SPEED = 40
-@export var ROT_SPEED = 0.8
+@export var SPEED : float
+@export var ROT_SPEED := 0.8
+@export var LIFES := 1
 var cur_rotation = 0
 
 var shoot_cooldown := 0.2  # sekundy
 var shoot_timer := 0.0
 
+signal ship_died
 
 func _physics_process(delta: float) -> void:
+	if LIFES <= 0:
+		return
 	space_wrap()
 	
 	if Input.is_action_pressed("LEFT"):
@@ -53,4 +57,8 @@ func recoil():
 
 
 func collision():
-	print("ship: booom :C")
+	LIFES -= 1
+	#TODO particle!!!!!
+	if LIFES <= 0:
+		await get_tree().create_timer(0.5).timeout
+		emit_signal("ship_died")

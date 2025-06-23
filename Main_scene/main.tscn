@@ -1,14 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://die5bifgyvx5y"]
+[gd_scene load_steps=7 format=3 uid="uid://die5bifgyvx5y"]
 
 [ext_resource type="PackedScene" uid="uid://c6pdxhsc0epy1" path="res://Ship/ship.tscn" id="1_4wy8m"]
 [ext_resource type="Script" uid="uid://tfy3ru4rot3y" path="res://Main_scene/main.gd" id="1_ie1cl"]
 [ext_resource type="Script" uid="uid://b3keltcue4elw" path="res://Main_scene/canvas_layer.gd" id="2_wltbo"]
-[ext_resource type="PackedScene" uid="uid://cqiq6sj06hh84" path="res://Main_scene/asteroids/asteroid_S.tscn" id="3_5m3ns"]
 [ext_resource type="Script" uid="uid://4e6u24pm0lyx" path="res://Main_scene/asteroid_manager.gd" id="3_d8e2q"]
-[ext_resource type="PackedScene" uid="uid://rv2wwubcmnx2" path="res://Main_scene/asteroids/asteroid_M.tscn" id="4_d8e2q"]
-[ext_resource type="PackedScene" uid="uid://bjteudg2h612t" path="res://Main_scene/asteroids/asteroid_L.tscn" id="5_wltbo"]
+[ext_resource type="Script" uid="uid://dm1wpeqkokks8" path="res://Main_scene/wave_timer.gd" id="5_5m3ns"]
+[ext_resource type="Script" uid="uid://4755ol5bm0y0" path="res://Main_scene/mid_wave_timer.gd" id="6_d8e2q"]
 
 [node name="Main" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_ie1cl")
 
 [node name="background" type="ColorRect" parent="."]
@@ -19,12 +19,13 @@ offset_bottom = 771.0
 color = Color(0.0296538, 0.0017748, 0.146898, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 script = ExtResource("2_wltbo")
 
 [node name="points_label" type="Label" parent="UI"]
-offset_left = 938.0
+offset_left = 939.0
 offset_top = 5.0
-offset_right = 1257.0
+offset_right = 1258.0
 offset_bottom = 104.0
 theme_override_colors/font_color = Color(0.908591, 0.992518, 2.31028e-06, 1)
 theme_override_font_sizes/font_size = 64
@@ -32,30 +33,86 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="timer_label" type="Label" parent="UI"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -159.5
+offset_right = 159.5
+offset_bottom = 99.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.908591, 0.992518, 2.31028e-06, 1)
+theme_override_font_sizes/font_size = 64
+text = "--:--"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="game_over_label" type="Label" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = -216.0
+offset_right = 184.0
+offset_bottom = 153.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.908591, 0.992518, 2.31028e-06, 1)
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER
+
+SCORE:
+HIGHSCORE:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="play_again_button" type="Button" parent="UI/game_over_label"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -189.5
+offset_top = 35.0
+offset_right = 189.5
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_colors/font_hover_pressed_color = Color(0.909804, 0.992157, 0, 1)
+theme_override_colors/font_hover_color = Color(0.909804, 0.992157, 0, 1)
+theme_override_colors/font_color = Color(0.909804, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "PLAY AGAIN"
+flat = true
+
 [node name="Ship" parent="." instance=ExtResource("1_4wy8m")]
+unique_name_in_owner = true
 position = Vector2(640, 310)
 
 [node name="Asteroid_manager" type="Node" parent="." groups=["asteroid_manager"]]
+process_mode = 1
 script = ExtResource("3_d8e2q")
+LEVELS = Array[Vector3i]([Vector3i(3, 2, 1), Vector3i(4, 2, 2), Vector3i(10, 3, 0), Vector3i(2, 1, 5)])
 
-[node name="asteroid" parent="Asteroid_manager" instance=ExtResource("5_wltbo")]
-position = Vector2(729, 315)
-scale = Vector2(2, 2)
+[node name="wave_timer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+script = ExtResource("5_5m3ns")
 
-[node name="asteroid2" parent="Asteroid_manager" instance=ExtResource("4_d8e2q")]
-position = Vector2(191, 382)
-scale = Vector2(2, 2)
+[node name="mid_wave_timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+script = ExtResource("6_d8e2q")
 
-[node name="asteroid3" parent="Asteroid_manager" instance=ExtResource("3_5m3ns")]
-position = Vector2(290, 497)
-scale = Vector2(2, 2)
-
-[node name="asteroid4" parent="Asteroid_manager" instance=ExtResource("4_d8e2q")]
-position = Vector2(942, 326)
-scale = Vector2(2, 2)
-
-[node name="asteroid5" parent="Asteroid_manager" instance=ExtResource("3_5m3ns")]
-position = Vector2(568, 536)
-scale = Vector2(2, 2)
-
+[connection signal="game_over" from="." to="UI" method="_on_main_game_over"]
+[connection signal="pressed" from="UI/game_over_label/play_again_button" to="." method="_on_play_again_button_pressed"]
+[connection signal="ship_died" from="Ship" to="." method="_on_ship_ship_died"]
 [connection signal="points_gained" from="Asteroid_manager" to="UI" method="_on_asteroid_manager_points_gained"]
+[connection signal="start_timer" from="Asteroid_manager" to="wave_timer" method="_on_asteroid_manager_start_timer"]
+[connection signal="timeout" from="wave_timer" to="Asteroid_manager" method="end_level"]

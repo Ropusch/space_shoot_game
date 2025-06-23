@@ -47,6 +47,7 @@ func space_wrap():
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("bullets"):
 		body.kill()
+		emit_signal("exploded", self)
 		destroy()
 	elif body.is_in_group("ship"):
 		body.collision()
@@ -54,6 +55,5 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func destroy():
-	emit_signal("exploded", self)
 	#TODO asteroid boom efects!!!
 	queue_free()

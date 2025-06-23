@@ -8,7 +8,7 @@ gravity_scale = 0.0
 can_sleep = false
 linear_damp = 1.0
 script = ExtResource("1_q4ev1")
-SPEED = 150
+SPEED = 150.0
 ROT_SPEED = 3.0
 
 [node name="hull" type="Line2D" parent="."]

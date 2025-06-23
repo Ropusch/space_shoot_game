@@ -2,15 +2,16 @@ extends Node
 
 @onready var ship: RigidBody2D = %Ship
 @onready var wave_timer: Timer = $"../wave_timer"
-@onready var mid_wave_timer: Timer = $"../mid_wave_timer"
 
 const ASTEROIDS := [preload("uid://cqiq6sj06hh84"), preload("uid://rv2wwubcmnx2"), preload("uid://bjteudg2h612t")]
 signal points_gained(points)
-signal start_timer(seconds)
+signal start_timer(seconds: int, variant: String)
 
 @export var LEVELS: Array[Vector3i]
 
 var cur_level := 0
+var wave_duration := 30
+var pause_duration := 10
 
 
 func _ready() -> void:
@@ -18,7 +19,7 @@ func _ready() -> void:
 
 
 func start_level(level):
-	emit_signal("start_timer", 30)
+	emit_signal("start_timer", wave_duration, "wave")
 	
 	#spawning asteroids:
 	var asteroids = LEVELS[level]
@@ -31,16 +32,15 @@ func start_level(level):
 
 
 func end_level() -> void:
-	#visual effect?
+	#visual effect? #TODO
 	for asteroid in get_children():
-		remove_child(asteroid)
-		asteroid.queue_free()
+		asteroid.destroy()
 	
 	if cur_level >= len(LEVELS)-1:
 		return
 		#KŁONIEC?
-	mid_wave_timer.start(10)
-	await mid_wave_timer.timeout
+	emit_signal("start_timer", pause_duration, "pause")
+	await wave_timer.timeout
 	
 	cur_level+=1
 	start_level(cur_level)
@@ -67,6 +67,10 @@ func _on_asteroid_exploded(asteroid: Asteroid):
 	var points = int(0.5*x*x+0.5*x+1)
 	emit_signal("points_gained", points)
 	split(asteroid)
+	
+
+	if len(get_children()) == 1:
+		end_level()
 
 
 func split(asteroid: Asteroid):

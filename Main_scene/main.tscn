@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://die5bifgyvx5y"]
+[gd_scene load_steps=6 format=3 uid="uid://die5bifgyvx5y"]
 
 [ext_resource type="PackedScene" uid="uid://c6pdxhsc0epy1" path="res://Ship/ship.tscn" id="1_4wy8m"]
 [ext_resource type="Script" uid="uid://tfy3ru4rot3y" path="res://Main_scene/main.gd" id="1_ie1cl"]
 [ext_resource type="Script" uid="uid://b3keltcue4elw" path="res://Main_scene/canvas_layer.gd" id="2_wltbo"]
 [ext_resource type="Script" uid="uid://4e6u24pm0lyx" path="res://Main_scene/asteroid_manager.gd" id="3_d8e2q"]
 [ext_resource type="Script" uid="uid://dm1wpeqkokks8" path="res://Main_scene/wave_timer.gd" id="5_5m3ns"]
-[ext_resource type="Script" uid="uid://4755ol5bm0y0" path="res://Main_scene/mid_wave_timer.gd" id="6_d8e2q"]
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -98,21 +97,17 @@ position = Vector2(640, 310)
 [node name="Asteroid_manager" type="Node" parent="." groups=["asteroid_manager"]]
 process_mode = 1
 script = ExtResource("3_d8e2q")
-LEVELS = Array[Vector3i]([Vector3i(3, 2, 1), Vector3i(4, 2, 2), Vector3i(10, 3, 0), Vector3i(2, 1, 5)])
+LEVELS = Array[Vector3i]([Vector3i(2, 0, 0), Vector3i(4, 2, 2), Vector3i(10, 3, 0), Vector3i(2, 1, 5)])
 
 [node name="wave_timer" type="Timer" parent="."]
+process_mode = 1
 wait_time = 30.0
 one_shot = true
 script = ExtResource("5_5m3ns")
-
-[node name="mid_wave_timer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-script = ExtResource("6_d8e2q")
 
 [connection signal="game_over" from="." to="UI" method="_on_main_game_over"]
 [connection signal="pressed" from="UI/game_over_label/play_again_button" to="." method="_on_play_again_button_pressed"]
 [connection signal="ship_died" from="Ship" to="." method="_on_ship_ship_died"]
 [connection signal="points_gained" from="Asteroid_manager" to="UI" method="_on_asteroid_manager_points_gained"]
 [connection signal="start_timer" from="Asteroid_manager" to="wave_timer" method="_on_asteroid_manager_start_timer"]
-[connection signal="timeout" from="wave_timer" to="Asteroid_manager" method="end_level"]
+[connection signal="end_wave" from="wave_timer" to="Asteroid_manager" method="end_level"]

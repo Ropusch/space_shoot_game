@@ -51,7 +51,6 @@ func _on_body_entered(body: Node2D) -> void:
 		destroy()
 	elif body.is_in_group("ship"):
 		body.collision()
-		destroy()
 
 
 func destroy():

@@ -6,12 +6,13 @@ extends Node
 const ASTEROIDS := [preload("uid://cqiq6sj06hh84"), preload("uid://rv2wwubcmnx2"), preload("uid://bjteudg2h612t")]
 signal points_gained(points)
 signal start_timer(seconds: int, variant: String)
+signal game_over
 
 @export var LEVELS: Array[Vector3i]
 
 var cur_level := 0
 var wave_duration := 30
-var pause_duration := 10
+var pause_duration := 5
 
 
 func _ready() -> void:
@@ -36,13 +37,16 @@ func end_level() -> void:
 	for asteroid in get_children():
 		asteroid.destroy()
 	
-	if cur_level >= len(LEVELS)-1:
+	cur_level+=1
+	if cur_level >= len(LEVELS):
+		await get_tree().create_timer(0.5).timeout
+		emit_signal("game_over")
 		return
-		#KŁONIEC?
+	
+	
 	emit_signal("start_timer", pause_duration, "pause")
 	await wave_timer.timeout
 	
-	cur_level+=1
 	start_level(cur_level)
 
 
@@ -68,9 +72,9 @@ func _on_asteroid_exploded(asteroid: Asteroid):
 	emit_signal("points_gained", points)
 	split(asteroid)
 	
-
-	if len(get_children()) == 1:
-		end_level()
+	#TODO 1111
+	#if len(get_children()) == 1:
+		#end_level()
 
 
 func split(asteroid: Asteroid):

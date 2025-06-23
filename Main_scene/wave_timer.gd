@@ -16,4 +16,3 @@ func _on_asteroid_manager_start_timer(seconds: int, variant: String) -> void:
 	elif variant == "wave":
 		await timeout
 		emit_signal("end_wave")
-		

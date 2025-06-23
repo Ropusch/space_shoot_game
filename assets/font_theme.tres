@@ -1,0 +1,45 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://du8270n2bby83"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tu8hj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pop7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hv5e6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ebamn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_08rxn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hs3it"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sjswd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p77vn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3jjag"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fd6y8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pr02"]
+
+[resource]
+Button/colors/font_color = Color(0.909804, 0, 0, 1)
+Button/colors/font_focus_color = Color(0.909804, 0.992157, 0, 1)
+Button/colors/font_hover_color = Color(0.909804, 0.992157, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.909804, 0.992157, 0, 1)
+Button/colors/font_pressed_color = Color(0.909804, 0.992157, 0, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/font_sizes/font_size = 64
+Button/styles/disabled = SubResource("StyleBoxEmpty_tu8hj")
+Button/styles/disabled_mirrored = SubResource("StyleBoxEmpty_5pop7")
+Button/styles/focus = SubResource("StyleBoxEmpty_hv5e6")
+Button/styles/hover = SubResource("StyleBoxEmpty_ebamn")
+Button/styles/hover_mirrored = SubResource("StyleBoxEmpty_08rxn")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_hs3it")
+Button/styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_sjswd")
+Button/styles/normal = SubResource("StyleBoxEmpty_p77vn")
+Button/styles/normal_mirrored = SubResource("StyleBoxEmpty_3jjag")
+Button/styles/pressed = SubResource("StyleBoxEmpty_fd6y8")
+Button/styles/pressed_mirrored = SubResource("StyleBoxEmpty_5pr02")
+Label/colors/font_color = Color(0.909804, 0.992157, 0, 1)
+Label/font_sizes/font_size = 64

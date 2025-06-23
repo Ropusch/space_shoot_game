@@ -33,6 +33,7 @@ window/stretch/scale_mode="integer"
 bullets=""
 astreoids=""
 ship=""
+asteroid_manager=""
 
 [input]
 

@@ -2,6 +2,7 @@ class_name Asteroid
 extends RigidBody2D
 
 
+
 enum Size {S, M, L}
 
 @export var size: Size 
@@ -11,13 +12,21 @@ var linear_speed := 30.0
 var direction := Vector2(0,1)
 
 
+signal exploded(asteroid: Asteroid)
+
+
 func _ready() -> void:
+	var manager = get_tree().get_first_node_in_group("asteroid_manager")
+	if manager:
+		exploded.connect(Callable(manager, "_on_asteroid_exploded"))
+	
 	rotation_speed = randf_range(0.1,3)
 	linear_speed = randf_range(20,140)
 	direction = Vector2(0,1).rotated(randf_range(0, 2*PI))
 	
 	angular_velocity = rotation_speed
 	linear_velocity = linear_speed * direction
+	
 
 
 func _physics_process(delta: float) -> void:
@@ -45,5 +54,6 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func destroy():
+	emit_signal("exploded", self)
 	#TODO asteroid boom efects!!!
 	queue_free()

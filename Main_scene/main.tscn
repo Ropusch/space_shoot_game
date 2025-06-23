@@ -1,35 +1,61 @@
-[gd_scene load_steps=6 format=3 uid="uid://die5bifgyvx5y"]
+[gd_scene load_steps=8 format=3 uid="uid://die5bifgyvx5y"]
 
 [ext_resource type="PackedScene" uid="uid://c6pdxhsc0epy1" path="res://Ship/ship.tscn" id="1_4wy8m"]
 [ext_resource type="Script" uid="uid://tfy3ru4rot3y" path="res://Main_scene/main.gd" id="1_ie1cl"]
+[ext_resource type="Script" uid="uid://b3keltcue4elw" path="res://Main_scene/canvas_layer.gd" id="2_wltbo"]
 [ext_resource type="PackedScene" uid="uid://cqiq6sj06hh84" path="res://Main_scene/asteroids/asteroid_S.tscn" id="3_5m3ns"]
+[ext_resource type="Script" uid="uid://4e6u24pm0lyx" path="res://Main_scene/asteroid_manager.gd" id="3_d8e2q"]
 [ext_resource type="PackedScene" uid="uid://rv2wwubcmnx2" path="res://Main_scene/asteroids/asteroid_M.tscn" id="4_d8e2q"]
 [ext_resource type="PackedScene" uid="uid://bjteudg2h612t" path="res://Main_scene/asteroids/asteroid_L.tscn" id="5_wltbo"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ie1cl")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="background" type="ColorRect" parent="."]
 offset_left = -47.0
 offset_top = -31.0
 offset_right = 1325.0
 offset_bottom = 771.0
 color = Color(0.0296538, 0.0017748, 0.146898, 1)
 
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("2_wltbo")
+
+[node name="points_label" type="Label" parent="UI"]
+offset_left = 938.0
+offset_top = 5.0
+offset_right = 1257.0
+offset_bottom = 104.0
+theme_override_colors/font_color = Color(0.908591, 0.992518, 2.31028e-06, 1)
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="Ship" parent="." instance=ExtResource("1_4wy8m")]
 position = Vector2(640, 310)
 
-[node name="asteroid" parent="." instance=ExtResource("5_wltbo")]
-position = Vector2(148, 213)
+[node name="Asteroid_manager" type="Node" parent="." groups=["asteroid_manager"]]
+script = ExtResource("3_d8e2q")
 
-[node name="asteroid2" parent="." instance=ExtResource("4_d8e2q")]
+[node name="asteroid" parent="Asteroid_manager" instance=ExtResource("5_wltbo")]
+position = Vector2(729, 315)
+scale = Vector2(2, 2)
+
+[node name="asteroid2" parent="Asteroid_manager" instance=ExtResource("4_d8e2q")]
 position = Vector2(191, 382)
+scale = Vector2(2, 2)
 
-[node name="asteroid3" parent="." instance=ExtResource("3_5m3ns")]
+[node name="asteroid3" parent="Asteroid_manager" instance=ExtResource("3_5m3ns")]
 position = Vector2(290, 497)
+scale = Vector2(2, 2)
 
-[node name="asteroid4" parent="." instance=ExtResource("4_d8e2q")]
+[node name="asteroid4" parent="Asteroid_manager" instance=ExtResource("4_d8e2q")]
 position = Vector2(942, 326)
+scale = Vector2(2, 2)
 
-[node name="asteroid5" parent="." instance=ExtResource("3_5m3ns")]
+[node name="asteroid5" parent="Asteroid_manager" instance=ExtResource("3_5m3ns")]
 position = Vector2(568, 536)
+scale = Vector2(2, 2)
+
+[connection signal="points_gained" from="Asteroid_manager" to="UI" method="_on_asteroid_manager_points_gained"]

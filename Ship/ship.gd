@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 @onready var hull: Line2D = $hull
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 const BULLET = preload("uid://dlixkppfvsxrk")
 
@@ -12,6 +13,7 @@ var cur_rotation = 0
 var shoot_cooldown := 0.2  # sekundy
 var shoot_timer := 0.0
 
+@warning_ignore("unused_signal")
 signal ship_died
 
 func _physics_process(delta: float) -> void:
@@ -60,5 +62,6 @@ func collision():
 	LIFES -= 1
 	#TODO particle!!!!!
 	if LIFES <= 0:
-		await get_tree().create_timer(0.5).timeout
-		emit_signal("ship_died")
+		#await get_tree().create_timer(0.5).timeout
+		#emit_signal("ship_died")
+		animation_player.play("explosion")

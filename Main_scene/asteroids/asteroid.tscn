@@ -1,6 +1,105 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfk36bntcatic"]
+[gd_scene load_steps=5 format=3 uid="uid://cfk36bntcatic"]
 
 [ext_resource type="Script" uid="uid://dbulowkinoar2" path="res://Main_scene/asteroids/asteroid.gd" id="1_6paju"]
+
+[sub_resource type="Animation" id="Animation_6paju"]
+resource_name = "explosion"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Asteroids_Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Line2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_clbbg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Asteroids_Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Line2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b1ee3"]
+_data = {
+&"RESET": SubResource("Animation_clbbg"),
+&"explosion": SubResource("Animation_6paju")
+}
 
 [node name="asteroid" type="RigidBody2D" groups=["astreoids"]]
 collision_layer = 3
@@ -12,5 +111,38 @@ max_contacts_reported = 10
 linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("1_6paju")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-0.42, 0.0100002)
+scale = Vector2(1.7, 1.7)
+polygon = PackedVector2Array(-10.5, -4, -3.5, -7, 2.5, -9, 7.5, -9, 12.5, -3, 9.5, 1, 10.5, 6, 0.5, 12, -8.5, 5)
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(-0.92, 0.0100002)
+scale = Vector2(1.7, 1.7)
+points = PackedVector2Array(3, -9, -3.0108, -7.4946, -10, -4, -8, 5, 1, 12, 11, 6, 10, 1, 13, -3, 8, -9, 3, -9, -1, -8)
+closed = true
+width = 2.0
+default_color = Color(0.519263, 0.179737, 0.0491308, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_b1ee3")
+}
+
+[node name="Asteroids_Particles2D" type="CPUParticles2D" parent="."]
+amount = 150
+lifetime = 1.2
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+damping_min = 1.0
+damping_max = 1.0
+color = Color(1, 0, 0, 1)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

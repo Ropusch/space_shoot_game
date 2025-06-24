@@ -3,7 +3,8 @@ extends Node
 @onready var ship: RigidBody2D = %Ship
 @onready var wave_timer: Timer = $"../wave_timer"
 
-const ASTEROIDS := [preload("uid://cqiq6sj06hh84"), preload("uid://rv2wwubcmnx2"), preload("uid://bjteudg2h612t")]
+const asteroid_scene = preload("uid://cfk36bntcatic")
+
 signal points_gained(points)
 signal start_timer(seconds: int, variant: String)
 signal game_over
@@ -61,12 +62,13 @@ func random_spawn() -> Vector2:
 
 
 func spawn(size, pos):
-	var asteroid: Asteroid = ASTEROIDS[size].instantiate()
+	var asteroid: Asteroid = asteroid_scene.instantiate()
 	asteroid.position = pos
+	asteroid.size = size
 	call_deferred("add_child", asteroid)
 
 
-func _on_asteroid_exploded(asteroid: Asteroid):
+func _on_asteroid_shooted(asteroid: Asteroid):
 	var x = float(asteroid.size)
 	var points = int(0.5*x*x+0.5*x+1)
 	emit_signal("points_gained", points)

@@ -2,6 +2,7 @@ extends RigidBody2D
 
 @onready var hull: Line2D = $hull
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var pew_pew_player: AudioStreamPlayer2D = $pew_pew_player
 
 const BULLET = preload("uid://dlixkppfvsxrk")
 
@@ -42,6 +43,8 @@ func space_wrap():
 
 
 func shot():
+	pew_pew_player.play(0.0)
+	
 	var bullet = BULLET.instantiate()
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_rotation = rotation
@@ -60,8 +63,6 @@ func recoil():
 
 func collision():
 	LIFES -= 1
-	#TODO particle!!!!!
 	if LIFES <= 0:
-		#await get_tree().create_timer(0.5).timeout
-		#emit_signal("ship_died")
+		$explosion_player.play(0.0)
 		animation_player.play("explosion")

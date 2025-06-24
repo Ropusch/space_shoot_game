@@ -44,8 +44,11 @@ func prep():
 	collision_polygon_2d.polygon = asteroid_polygons[size]
 	line_2d.points = asteroid_polygons[size]
 	
-	#TODO particle
-
+	asteroids_particles_2d.scale_amount_min += size
+	asteroids_particles_2d.scale_amount_max += size
+	
+	asteroids_particles_2d.initial_velocity_min *= (float(size)+2)/2
+	asteroids_particles_2d.initial_velocity_max *= (float(size)+2)/2
 
 func _physics_process(delta: float) -> void:
 	space_wrap()
@@ -72,4 +75,5 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func destroy():
+	$explosion_sfs_player.play(0.4)
 	animation_player.play("explosion")

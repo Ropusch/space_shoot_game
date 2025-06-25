@@ -3,7 +3,8 @@ extends Control
 @onready var points_label: Label = $points_label
 @onready var timer_label: Label = %timer_label
 @onready var game_over_label: Label = $game_over_label
-@onready var options_menu: Control = $"../options_menu"
+@onready var options_menu: Control = $"../CanvasLayer/options_menu"
+
 
 
 var cur_points:= 0

@@ -18,9 +18,13 @@ func _on_asteroid_manager_points_gained(points: Variant) -> void:
 	points_label.text = str(cur_points)
 
 
-func _on_main_game_over() -> void:
+func game_over_ui(won: bool):
+	#TODO effects!!!?
 	points_label.hide()
 	timer_label.hide()
 	
-	game_over_label.text = "GAME OVER\n\nSCORE: %d\nHIGHSCORE: %d" % [cur_points, highscore]
+	if won:
+		game_over_label.text = "YOU WON\n\nSCORE: %d\nHIGHSCORE: %d" % [cur_points, highscore]
+	else:
+		game_over_label.text = "GAME OVER\n\nSCORE: %d\nHIGHSCORE: %d" % [cur_points, highscore]
 	game_over_label.show()

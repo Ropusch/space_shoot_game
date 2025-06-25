@@ -1,7 +1,6 @@
 extends Node2D
 
-
-signal game_over
+@onready var ui: CanvasLayer = $UI
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -22,8 +21,15 @@ func pause_menu():
 
 
 func _on_ship_ship_died() -> void:
+	game_over(false)
+
+
+func game_over(won: bool):
+	$UI/wave_cleared_label.hide()
+	
 	get_tree().paused = true
-	emit_signal("game_over")
+	ui.game_over_ui(won)
+
 
 
 func _on_play_again_button_pressed() -> void:

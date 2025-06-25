@@ -97,8 +97,8 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.98),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [&"ship_died"],
-"method": &"emit_signal"
+"args": [],
+"method": &"_emit_on_death"
 }]
 }
 tracks/2/type = "value"

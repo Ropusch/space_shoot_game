@@ -8,7 +8,7 @@ const asteroid_scene = preload("uid://cfk36bntcatic")
 
 signal points_gained(points)
 signal start_timer(seconds: int, variant: String)
-signal game_over
+signal game_over(won: bool)
 signal wave_cleared
 
 @export var LEVELS: Array[Vector3i]
@@ -44,17 +44,14 @@ func start_level(level):
 func end_level() -> void:
 	is_wave = false
 	
-	#visual effect? #TODO
+	#TODO visual effect? 
 	for asteroid in get_children():
 		asteroid.destroy()
 	
-	
 	cur_level+=1
-	print(cur_level==len(LEVELS))
 	if cur_level >= len(LEVELS):
 		await get_tree().create_timer(0.5).timeout
-		emit_signal("game_over")
-		print("hihi")
+		emit_signal("game_over", $"../wave_timer".wave_cleared)
 		return
 	
 	
@@ -70,7 +67,7 @@ func random_spawn() -> Vector2:
 	var pos: Vector2
 	while !valid_pos:
 		pos = Vector2(randf_range(0,1280), randf_range(0,720))
-		if pos.distance_to(ship.position) >= 75: valid_pos = true
+		if pos.distance_to(ship.position) >= 80: valid_pos = true
 	return pos
 
 

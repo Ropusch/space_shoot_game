@@ -15,7 +15,8 @@ var shoot_cooldown := 0.2  # sekundy
 var shoot_timer := 0.0
 
 @warning_ignore("unused_signal")
-signal ship_died
+
+signal ship_died(won: bool)
 
 func _physics_process(delta: float) -> void:
 	if LIFES <= 0:
@@ -66,3 +67,8 @@ func collision():
 	if LIFES <= 0:
 		$explosion_player.play(0.0)
 		animation_player.play("explosion")
+
+
+func _emit_on_death():
+	emit_signal("ship_died", false)
+	

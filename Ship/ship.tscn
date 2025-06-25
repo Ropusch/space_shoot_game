@@ -231,7 +231,9 @@ scale_amount_curve = SubResource("Curve_1p84g")
 [node name="explosion_player" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_edrfk")
 volume_db = 8.0
+bus = &"sfx"
 
 [node name="pew_pew_player" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_q4ev1")
 volume_db = 5.0
+bus = &"sfx"

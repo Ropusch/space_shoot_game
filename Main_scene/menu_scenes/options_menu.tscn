@@ -1,0 +1,103 @@
+[gd_scene load_steps=4 format=3 uid="uid://drd8fowhopfwx"]
+
+[ext_resource type="Script" uid="uid://dh4dq3jxw36r0" path="res://Main_scene/menu_scenes/options_menu.gd" id="1_ac7v5"]
+[ext_resource type="Theme" uid="uid://du8270n2bby83" path="res://assets/font_theme.tres" id="1_nnbbs"]
+[ext_resource type="PackedScene" uid="uid://brrnrv6sko2ak" path="res://Main_scene/menu_scenes/volume_slider.tscn" id="2_cl2pr"]
+
+[node name="options_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_ac7v5")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -31.0
+offset_right = 1325.0
+offset_bottom = 771.0
+color = Color(0.0296538, 0.0017748, 0.146898, 1)
+
+[node name="pause_label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.5
+offset_top = 117.0
+offset_right = 140.5
+offset_bottom = 205.0
+grow_horizontal = 2
+theme = ExtResource("1_nnbbs")
+text = "OPTIONS"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -201.5
+offset_top = 298.0
+offset_right = 201.5
+offset_bottom = 441.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="master_label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_nnbbs")
+theme_override_font_sizes/font_size = 32
+text = "MASTER VOLUME"
+
+[node name="music_label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_nnbbs")
+theme_override_font_sizes/font_size = 32
+text = "MUSIC VOLUME"
+
+[node name="sfx_label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_nnbbs")
+theme_override_font_sizes/font_size = 32
+text = "SFX VOLUME"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="volume_slider" parent="HBoxContainer/VBoxContainer2" instance=ExtResource("2_cl2pr")]
+layout_mode = 2
+size_flags_vertical = 3
+bus_name = "Master"
+
+[node name="volume_slider2" parent="HBoxContainer/VBoxContainer2" instance=ExtResource("2_cl2pr")]
+layout_mode = 2
+size_flags_vertical = 3
+bus_name = "music"
+
+[node name="volume_slider3" parent="HBoxContainer/VBoxContainer2" instance=ExtResource("2_cl2pr")]
+layout_mode = 2
+size_flags_vertical = 3
+bus_name = "sfx"
+
+[node name="return_button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.5
+offset_top = -194.0
+offset_right = 125.5
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_nnbbs")
+text = "RETURN"
+
+[connection signal="pressed" from="return_button" to="." method="_on_return_button_pressed"]

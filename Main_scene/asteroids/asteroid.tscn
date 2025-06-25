@@ -170,5 +170,6 @@ color = Color(1, 0, 0, 1)
 [node name="explosion_sfs_player" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_clbbg")
 volume_db = -4.0
+bus = &"sfx"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

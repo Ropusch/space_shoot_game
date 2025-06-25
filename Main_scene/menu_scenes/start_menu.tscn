@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://duwrv1goibcmy"]
+
+[ext_resource type="Script" uid="uid://bwcnb7mb3eay3" path="res://Main_scene/menu_scenes/start_menu.gd" id="1_d4fvb"]
+[ext_resource type="Theme" uid="uid://du8270n2bby83" path="res://assets/font_theme.tres" id="2_4epr3"]
+[ext_resource type="AudioStream" uid="uid://ct7piu6d37syv" path="res://assets/Peter Gagliardi - Synesthetic Xenotype II- The Lost Generation - 10 Snapping Jaw (Briefing).mp3" id="3_4epr3"]
+[ext_resource type="PackedScene" uid="uid://drd8fowhopfwx" path="res://Main_scene/menu_scenes/options_menu.tscn" id="4_qviso"]
+
+[node name="Start_menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d4fvb")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -31.0
+offset_right = 1325.0
+offset_bottom = 771.0
+color = Color(0.0296538, 0.0017748, 0.146898, 1)
+
+[node name="game_title_label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -405.0
+offset_top = 84.0
+offset_right = 405.0
+offset_bottom = 172.0
+grow_horizontal = 2
+theme = ExtResource("2_4epr3")
+text = "SPACE ASTEROID SHOT 15 "
+
+[node name="highscore_label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -591.5
+offset_top = 304.0
+offset_right = -328.5
+offset_bottom = 349.0
+grow_horizontal = 2
+rotation = -0.28185
+theme = ExtResource("2_4epr3")
+theme_override_font_sizes/font_size = 32
+text = "HIGHSCORE 0000"
+
+[node name="buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.5
+offset_top = -56.0
+offset_right = 140.5
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="play_button" type="Button" parent="buttons"]
+layout_mode = 2
+theme = ExtResource("2_4epr3")
+text = "PLAY"
+
+[node name="options_button" type="Button" parent="buttons"]
+layout_mode = 2
+theme = ExtResource("2_4epr3")
+text = "OPTIONS"
+
+[node name="quit_button" type="Button" parent="buttons"]
+layout_mode = 2
+theme = ExtResource("2_4epr3")
+text = "QUIT"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_4epr3")
+bus = &"music"
+
+[node name="options_menu" parent="." instance=ExtResource("4_qviso")]
+visible = false
+layout_mode = 0
+
+[connection signal="pressed" from="buttons/play_button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="buttons/options_button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="buttons/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
+[connection signal="return_buttom_pressed" from="options_menu" to="." method="_on_options_menu_return_buttom_pressed"]

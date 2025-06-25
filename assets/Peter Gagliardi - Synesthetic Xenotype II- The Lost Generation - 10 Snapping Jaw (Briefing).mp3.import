@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ct7piu6d37syv"
+path="res://.godot/imported/Peter Gagliardi - Synesthetic Xenotype II- The Lost Generation - 10 Snapping Jaw (Briefing).mp3-14ecfadad0d4361db97bf5ad7c9e7f54.mp3str"
+
+[deps]
+
+source_file="res://assets/Peter Gagliardi - Synesthetic Xenotype II- The Lost Generation - 10 Snapping Jaw (Briefing).mp3"
+dest_files=["res://.godot/imported/Peter Gagliardi - Synesthetic Xenotype II- The Lost Generation - 10 Snapping Jaw (Briefing).mp3-14ecfadad0d4361db97bf5ad7c9e7f54.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

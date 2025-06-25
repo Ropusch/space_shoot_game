@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://die5bifgyvx5y"]
+[gd_scene load_steps=11 format=3 uid="uid://die5bifgyvx5y"]
 
 [ext_resource type="PackedScene" uid="uid://c6pdxhsc0epy1" path="res://Ship/ship.tscn" id="1_4wy8m"]
 [ext_resource type="Script" uid="uid://tfy3ru4rot3y" path="res://Main_scene/main.gd" id="1_ie1cl"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://4e6u24pm0lyx" path="res://Main_scene/asteroid_manager.gd" id="3_d8e2q"]
 [ext_resource type="Theme" uid="uid://du8270n2bby83" path="res://assets/font_theme.tres" id="3_wltbo"]
 [ext_resource type="Script" uid="uid://dm1wpeqkokks8" path="res://Main_scene/wave_timer.gd" id="5_5m3ns"]
+[ext_resource type="AudioStream" uid="uid://deiwa0fene4lj" path="res://assets/mixkit-space-game-668.mp3" id="7_wltbo"]
+[ext_resource type="PackedScene" uid="uid://drd8fowhopfwx" path="res://Main_scene/menu_scenes/options_menu.tscn" id="8_2aka3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5m3ns"]
 
@@ -22,11 +24,32 @@ offset_right = 1325.0
 offset_bottom = 771.0
 color = Color(0.0296538, 0.0017748, 0.146898, 1)
 
-[node name="UI" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
+[node name="Ship" parent="." instance=ExtResource("1_4wy8m")]
+unique_name_in_owner = true
+process_mode = 1
+position = Vector2(640, 360)
+
+[node name="Asteroid_manager" type="Node" parent="." groups=["asteroid_manager"]]
+process_mode = 1
+script = ExtResource("3_d8e2q")
+LEVELS = Array[Vector3i]([Vector3i(1, 0, 0), Vector3i(2, 0, 0)])
+
+[node name="wave_timer" type="Timer" parent="."]
+process_mode = 1
+process_callback = 0
+wait_time = 30.0
+one_shot = true
+script = ExtResource("5_5m3ns")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 script = ExtResource("2_wltbo")
 
 [node name="points_label" type="Label" parent="UI"]
+layout_mode = 0
 offset_left = 939.0
 offset_top = 5.0
 offset_right = 1258.0
@@ -40,6 +63,7 @@ vertical_alignment = 1
 
 [node name="timer_label" type="Label" parent="UI"]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -56,6 +80,7 @@ vertical_alignment = 1
 
 [node name="wave_cleared_label" type="Label" parent="UI"]
 visible = false
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -73,6 +98,7 @@ vertical_alignment = 1
 
 [node name="game_over_label" type="Label" parent="UI"]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -145,27 +171,79 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_d8e2q")
 text = "MAIN MENU"
 flat = true
 
-[node name="Ship" parent="." instance=ExtResource("1_4wy8m")]
-unique_name_in_owner = true
-process_mode = 1
-position = Vector2(640, 310)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Asteroid_manager" type="Node" parent="." groups=["asteroid_manager"]]
-process_mode = 1
-script = ExtResource("3_d8e2q")
-LEVELS = Array[Vector3i]([Vector3i(1, 0, 0)])
+[node name="Pause_menu" type="Control" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="wave_timer" type="Timer" parent="."]
-process_mode = 1
-process_callback = 0
-wait_time = 30.0
-one_shot = true
-script = ExtResource("5_5m3ns")
+[node name="pause_label" type="Label" parent="CanvasLayer/Pause_menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -123.5
+offset_top = 168.0
+offset_right = 123.5
+offset_bottom = 256.0
+grow_horizontal = 2
+theme = ExtResource("3_wltbo")
+text = "PAUSED"
 
-[connection signal="pressed" from="UI/game_over_label/play_again_button" to="." method="_on_play_again_button_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause_menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -190.0
+offset_top = 347.0
+offset_right = 190.0
+offset_bottom = 619.0
+grow_horizontal = 2
+
+[node name="resume_button" type="Button" parent="CanvasLayer/Pause_menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_wltbo")
+text = "RESUME"
+
+[node name="options_button" type="Button" parent="CanvasLayer/Pause_menu/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme = ExtResource("3_wltbo")
+text = "OPTIONS"
+
+[node name="start_menu_button" type="Button" parent="CanvasLayer/Pause_menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_wltbo")
+text = "MAIN MENU
+"
+
+[node name="options_menu" parent="CanvasLayer" instance=ExtResource("8_2aka3")]
+visible = false
+top_level = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_wltbo")
+volume_db = 10.0
+bus = &"music"
+
 [connection signal="ship_died" from="Ship" to="." method="_on_ship_ship_died"]
 [connection signal="game_over" from="Asteroid_manager" to="." method="game_over"]
 [connection signal="points_gained" from="Asteroid_manager" to="UI" method="_on_asteroid_manager_points_gained"]
 [connection signal="start_timer" from="Asteroid_manager" to="wave_timer" method="_on_asteroid_manager_start_timer"]
 [connection signal="wave_cleared" from="Asteroid_manager" to="wave_timer" method="_on_wave_cleared"]
 [connection signal="end_wave" from="wave_timer" to="Asteroid_manager" method="end_level"]
+[connection signal="pressed" from="UI/game_over_label/play_again_button" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="UI/game_over_label/main_menu_button" to="UI" method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause_menu/VBoxContainer/resume_button" to="." method="pause"]
+[connection signal="pressed" from="CanvasLayer/Pause_menu/VBoxContainer/options_button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause_menu/VBoxContainer/start_menu_button" to="UI" method="_on_main_menu_button_pressed"]
+[connection signal="return_buttom_pressed" from="CanvasLayer/options_menu" to="." method="_on_options_menu_return_buttom_pressed"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

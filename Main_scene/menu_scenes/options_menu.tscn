@@ -37,10 +37,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -201.5
-offset_top = 298.0
-offset_right = 201.5
-offset_bottom = 441.0
+offset_left = -302.0
+offset_top = 304.0
+offset_right = 302.0
+offset_bottom = 447.0
 grow_horizontal = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
@@ -92,12 +92,15 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -125.5
-offset_top = -194.0
+offset_top = -205.0
 offset_right = 125.5
-offset_bottom = -106.0
+offset_bottom = -117.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("1_nnbbs")
 text = "RETURN"
 
+[connection signal="initialize_sliders" from="." to="HBoxContainer/VBoxContainer2/volume_slider" method="initialize"]
+[connection signal="initialize_sliders" from="." to="HBoxContainer/VBoxContainer2/volume_slider2" method="initialize"]
+[connection signal="initialize_sliders" from="." to="HBoxContainer/VBoxContainer2/volume_slider3" method="initialize"]
 [connection signal="pressed" from="return_button" to="." method="_on_return_button_pressed"]

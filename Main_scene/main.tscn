@@ -231,7 +231,7 @@ top_level = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_wltbo")
-volume_db = 10.0
+volume_db = 8.0
 bus = &"music"
 
 [connection signal="ship_died" from="Ship" to="." method="_on_ship_ship_died"]

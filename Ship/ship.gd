@@ -70,5 +70,5 @@ func collision():
 
 
 func _emit_on_death():
-	emit_signal("ship_died", false)
+	emit_signal("ship_died")
 	

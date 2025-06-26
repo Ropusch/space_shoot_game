@@ -13,6 +13,7 @@ var options_on := false
 
 func _ready() -> void:
 	audio_stream_player_2d.playing = true
+	options_menu.initialize()
 
 
 func _unhandled_input(event: InputEvent) -> void:

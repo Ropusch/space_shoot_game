@@ -6,7 +6,7 @@ extends HSlider
 var bus_index
 
 
-func _ready() -> void:
+func initialize() -> void:
 	bus_index = AudioServer.get_bus_index(bus_name)
 	value = AudioServer.get_bus_volume_linear(bus_index)
 

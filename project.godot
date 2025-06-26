@@ -15,6 +15,10 @@ run/main_scene="uid://duwrv1goibcmy"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SaveManager="*res://Save_manager/save_manager.gd"
+
 [debug]
 
 gdscript/warnings/unused_variable=0

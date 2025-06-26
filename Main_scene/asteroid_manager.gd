@@ -23,7 +23,6 @@ var is_wave := false
 func _ready() -> void:
 	start_level(cur_level)
 
-
 func start_level(level):
 	wave_cleared_label.hide()
 	is_wave = true

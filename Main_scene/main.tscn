@@ -32,7 +32,7 @@ position = Vector2(640, 360)
 [node name="Asteroid_manager" type="Node" parent="." groups=["asteroid_manager"]]
 process_mode = 1
 script = ExtResource("3_d8e2q")
-LEVELS = Array[Vector3i]([Vector3i(1, 0, 0), Vector3i(2, 0, 0)])
+LEVELS = Array[Vector3i]([Vector3i(10, 2, 0), Vector3i(8, 6, 0), Vector3i(6, 5, 3), Vector3i(2, 8, 4), Vector3i(25, 0, 0), Vector3i(3, 10, 6), Vector3i(5, 7, 5), Vector3i(6, 4, 3), Vector3i(5, 0, 7), Vector3i(0, 15, 0), Vector3i(5, 5, 4), Vector3i(10, 2, 4), Vector3i(7, 3, 4), Vector3i(8, 8, 0), Vector3i(0, 0, 10)])
 
 [node name="wave_timer" type="Timer" parent="."]
 process_mode = 1
